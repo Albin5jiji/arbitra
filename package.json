@@ -1,0 +1,35 @@
+{
+  "name": "arbitra",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Autonomous trust, arbitration, and settlement for AI agents on Monad.",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:monad": "hardhat run scripts/deploy.js --network monadTestnet",
+    "copy-abi": "node scripts/copy-abi.js",
+    "server": "node server/index.js",
+    "frontend": "vite --config frontend/vite.config.js",
+    "build": "vite build --config frontend/vite.config.js",
+    "lint": "echo \"No lint script configured\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@x402/core": "^2.16.0",
+    "@x402/evm": "^2.16.0",
+    "@x402/express": "^2.16.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
+    "express": "^4.21.2",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "hardhat": "^2.22.17",
+    "vite": "^5.4.11"
+  }
+}
