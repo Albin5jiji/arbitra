@@ -4,11 +4,14 @@
   "private": true,
   "description": "Autonomous trust, arbitration, and settlement for AI agents on Monad.",
   "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,green \"npm:server\" \"npm:frontend:only\"",
     "compile": "hardhat compile",
     "deploy:monad": "hardhat run scripts/deploy.js --network monadTestnet",
     "copy-abi": "node scripts/copy-abi.js",
     "server": "node server/index.js",
-    "frontend": "vite --config frontend/vite.config.js",
+    "x402:buy-report": "node scripts/x402-buy-report.js",
+    "frontend": "npm run dev",
+    "frontend:only": "vite --config frontend/vite.config.js",
     "build": "vite build --config frontend/vite.config.js",
     "lint": "echo \"No lint script configured\""
   },
@@ -25,10 +28,13 @@
     "express": "^4.21.2",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "viem": "^2.53.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^10.0.3",
     "hardhat": "^2.22.17",
     "vite": "^5.4.11"
   }

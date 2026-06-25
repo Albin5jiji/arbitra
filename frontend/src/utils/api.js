@@ -32,11 +32,21 @@ export async function probeX402Report(jobId) {
 }
 
 async function requestJson(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, options);
+  let response;
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, options);
+  } catch (_error) {
+    throw new Error("Arbitra API is offline. Start the full app with npm run dev.");
+  }
+
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(data.error || `Request failed with status ${response.status}`);
+    const fallback =
+      response.status === 500
+        ? "Arbitra API failed. For local development, start both services with npm run dev."
+        : `Request failed with status ${response.status}`;
+    throw new Error(data.error || fallback);
   }
 
   return data;

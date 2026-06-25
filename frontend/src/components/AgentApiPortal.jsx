@@ -84,9 +84,9 @@ export default function AgentApiPortal({ jobs, onNotice }) {
         <div><span className="terminal-dot red" /><span className="terminal-dot amber" /><span className="terminal-dot green" /> agent request</div>
         <code>GET /api/x402/report/{jobId || ":jobId"}</code>
         {probe ? (
-          <pre>{JSON.stringify({ status: probe.status, paymentRequired: probe.paymentRequired || "included in response body", body: probe.data }, null, 2)}</pre>
+          <pre>{JSON.stringify({ status: probe.status, paymentRequired: probe.paymentRequired || "included in response body", body: probe.data, paidAgentCommand: `npm run x402:buy-report -- ${jobId || ":jobId"}` }, null, 2)}</pre>
         ) : (
-          <p>First request returns HTTP 402. The agent signs the offered payment, retries with PAYMENT-SIGNATURE, and receives the report.</p>
+          <p>First request returns HTTP 402. Run <code>npm run x402:buy-report -- {jobId || ":jobId"}</code> to sign, retry, and receive the paid report.</p>
         )}
       </article>
     </section>

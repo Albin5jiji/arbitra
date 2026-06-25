@@ -30,12 +30,13 @@ npm run compile
 npm run copy-abi
 ```
 
-Set `PRIVATE_KEY`, `CONTRACT_ADDRESS`, and `VITE_CONTRACT_ADDRESS`, then run:
+Set `PRIVATE_KEY`, `CONTRACT_ADDRESS`, and `VITE_CONTRACT_ADDRESS`, then run the API and frontend together:
 
 ```bash
-npm run server
-npm run frontend
+npm run dev
 ```
+
+`npm run frontend` is also an alias for the complete development stack. Use `npm run frontend:only` only when the API server is already running separately.
 
 ## Demo Flow
 
@@ -51,6 +52,15 @@ npm run frontend
 
 `GET /api/x402/report/:jobId` sells the complete judge transcript and settlement receipt. An unpaid request receives an official x402 v2 `402 Payment Required` response; a compliant agent signs the offered payment and retries with `PAYMENT-SIGNATURE`.
 
+The UI x402 tab probes the endpoint and shows the payment challenge. To run the full agent payment-and-retry flow locally:
+
+```bash
+npm run dev
+npm run x402:buy-report -- 0
+```
+
+Set `X402_BUYER_PRIVATE_KEY` in `server/.env` for the paying agent wallet. The wallet needs funds/assets on the configured x402 network; keep this key server-side only.
+
 The public x402.org facilitator supports Base Sepolia, so that is the development default:
 
 ```bash
@@ -58,6 +68,7 @@ X402_NETWORK=eip155:84532
 X402_PRICE=$0.01
 X402_FACILITATOR_URL=https://x402.org/facilitator
 X402_PAY_TO=0xYourReceivingWallet
+X402_BUYER_PRIVATE_KEY=0xYourBuyerWalletPrivateKey
 ```
 
 To settle x402 payments on Monad, set `X402_NETWORK=eip155:10143` and provide a facilitator that supports Monad testnet.
